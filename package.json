@@ -1,0 +1,40 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "js": "webpack",
+    "develop": "NODE_ENV=development npm run js -- serve --mode=development -w & npm run static -- -w && wait",
+    "static": "babel --copy-files --out-dir dist src/static",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && npm run static && npm run svgr && npm run image && NODE_ENV=production npm run js -- --mode=production",
+    "package-clean": "rm -rf package-lock.json node_modules",
+    "svgr": "svgr --typescript --replace-attr-values \"#f0f=currentcolor\" --filename-case kebab -d src/js/generated/svg src/svg",
+    "images": "mkdir -p dist/images && cp src/images/* dist/images && find src/images -type f \\( -name '*.jpg' -o -name '*.png' \\) -print0 | xargs -0 -P4 -I{} sh -c 'cwebp -q 80 $0 -o dist/images/$(basename ${0%.*}).webp' {}"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@svgr/cli": "^5.5.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "styled-components": "^5.2.1",
+    "ts-loader": "^8.0.12",
+    "typescript": "^4.1.3",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0",
+    "webpack-merge": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/styled-components": "^5.1.7",
+    "typescript-styled-plugin": "^0.15.0",
+    "webpack-dev-server": "^3.11.1"
+  }
+}
