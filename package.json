@@ -6,13 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "js": "webpack",
-    "develop": "NODE_ENV=development npm run js -- serve --mode=development -w & npm run static -- -w && wait",
+    "develop": "NODE_ENV=development npm run js -- serve --mode=development & npm run static -- -w && wait",
     "static": "babel --copy-files --out-dir dist src/static",
     "clean": "rm -rf dist",
-    "build": "npm run clean && npm run static && npm run svgr && npm run image && NODE_ENV=production npm run js -- --mode=production",
+    "build": "npm run clean && npm run static && npm run svgr && npm run images && NODE_ENV=production npm run js -- --mode=production",
     "package-clean": "rm -rf package-lock.json node_modules",
     "svgr": "svgr --typescript --replace-attr-values \"#f0f=currentcolor\" --filename-case kebab -d src/js/generated/svg src/svg",
-    "images": "mkdir -p dist/images && cp src/images/* dist/images && find src/images -type f \\( -name '*.jpg' -o -name '*.png' \\) -print0 | xargs -0 -P4 -I{} sh -c 'cwebp -q 80 $0 -o dist/images/$(basename ${0%.*}).webp' {}"
+    "images": "mkdir -p dist/images && cp -r src/images/* dist/images && cd src/images && find * -type f \\( -name '*.jpg' -o -name '*.png' \\) -print0 | xargs -0 -P4 -I{} sh -c 'cwebp -q 80 $0 -o ../../dist/images/${0%.*}.webp' {}"
   },
   "keywords": [],
   "author": "",
