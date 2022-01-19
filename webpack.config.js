@@ -1,17 +1,19 @@
-const path = require('path')
 const { merge } = require('webpack-merge')
+const path = require('path')
+
+const mode = process.env.NODE_ENV ?? 'development'
 
 const modeConfig = {
   development: {
     mode: 'development',
     devServer: {
-      contentBase: path.join(__dirname, 'dist'),
-      watchContentBase: true,
-      port: 8090,
+      static: {
+        directory: path.join(__dirname, 'dist')
+      },
+      port: 8080,
       host: '0.0.0.0',
       hot: true,
-      historyApiFallback: true,
-      disableHostCheck: true
+      historyApiFallback: true
     },
     devtool: 'eval-source-map'
   },
@@ -23,10 +25,10 @@ const modeConfig = {
 
 module.exports = merge({
   entry: {
-    index: path.resolve(__dirname, 'src/js/index.tsx')
+    index: path.join(__dirname, 'src/js/index.tsx')
   },
   output: {
-    path: path.resolve(__dirname, 'dist')
+    path: path.join(__dirname, 'dist')
   },
   module: {
     rules: [
@@ -44,4 +46,4 @@ module.exports = merge({
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.mjs']
   }
-}, modeConfig[process.env.NODE_ENV] ?? {})
+}, modeConfig[mode] ?? {})
