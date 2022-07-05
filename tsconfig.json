@@ -21,4 +21,9 @@
   "include": [
     "src/js"
   ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
