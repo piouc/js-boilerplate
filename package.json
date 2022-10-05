@@ -12,7 +12,7 @@
     "build": "npm run clean && npm run static && npm run svgr && npm run images && NODE_ENV=production npm run js -- --mode=production",
     "package-clean": "rm -rf package-lock.json node_modules",
     "svgr": "svgr --no-index -d src/js/generated/svg src/svg",
-    "images": "mkdir -p dist/images && cp -r src/images/* dist/images && cd src/images && find * -type f \\( -name '*.jpg' -o -name '*.png' \\) -print0 | xargs -0 -P4 -I{} sh -c 'cwebp -q 80 $0 -o ../../dist/images/${0%.*}.webp' {}"
+    "images": "mkdir -p dist/images && cp -r src/images/* dist/images || : && cd src/images && find * -type f \\( -name '*.jpg' -o -name '*.png' \\) -print0 | xargs -0 -P4 -I{} sh -c 'cwebp -q 80 $0 -o ../../dist/images/${0%.*}.webp' {}"
   },
   "keywords": [],
   "author": "",
@@ -20,24 +20,24 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.19.3",
-    "@babel/core": "^7.19.3",
-    "@svgr/cli": "^6.4.0",
-    "@types/react": "^18.0.21",
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.0",
+    "@svgr/cli": "^6.3.1",
+    "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
     "@types/styled-components": "^5.1.26",
     "@types/webpack": "^5.28.0",
     "@types/webpack-dev-server": "^4.7.2",
-    "ts-loader": "^9.4.1",
+    "ts-loader": "^9.3.1",
     "ts-node": "^10.9.1",
-    "typescript": "^4.8.4",
+    "typescript": "^4.8.2",
     "typescript-styled-plugin": "^0.18.2",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.11.1",
+    "webpack-dev-server": "^4.10.1",
     "webpack-merge": "^5.8.0"
   }
 }
