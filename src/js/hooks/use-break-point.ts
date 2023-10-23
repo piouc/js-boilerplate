@@ -7,18 +7,10 @@ export const useBreakpoint = (breakpoint: string) => {
     const listener = () => {
       setMatch(matchMedia.matches)
     }
-    if(matchMedia.addEventListener){
-      matchMedia.addEventListener('change', listener)
-    } else {
-      matchMedia.addListener(listener)
-    }
+    matchMedia.addEventListener('change', listener)
     listener()
     return () => {
-      if(matchMedia.removeEventListener){
-        matchMedia.removeEventListener('change', listener)
-      } else {
-        matchMedia.removeListener(listener)
-      }
+      matchMedia.removeEventListener('change', listener)
     }
   }, [])
 
