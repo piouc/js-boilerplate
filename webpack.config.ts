@@ -19,7 +19,7 @@ const baseConfig: Configuration = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'ts-loader'
+            loader: 'babel-loader'
           }
         ]
       }
