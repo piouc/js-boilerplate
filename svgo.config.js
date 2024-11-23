@@ -1,4 +1,4 @@
-let idCount = 0
+const { createHash } = require('crypto');
 
 module.exports = {
   plugins: [
@@ -9,7 +9,10 @@ module.exports = {
           removeViewBox: false,
           moveGroupAttrsToElems: false,
           collapseGroups: false,
-          minifyStyles: false
+          minifyStyles: false,
+          mergePaths: false,
+          cleanupIds: false,
+          convertTransform: false
         },
       },
     },
@@ -20,7 +23,11 @@ module.exports = {
       name: 'prefixIds',
       params: {
         delim: '',
-        prefix: () => `${idCount++}-`
+        prefix: (node, info) => {
+          const hash = createHash('sha1')
+          hash.update(info.path)
+          return `${hash.digest('hex')}-`
+        }
       }
     }
   ],

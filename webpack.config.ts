@@ -37,12 +37,10 @@ const modeConfig: Record<string, Configuration> = {
       static: {
         directory: join(__dirname, 'dist')
       },
-      port: 8080,
-      host: '0.0.0.0',
       hot: true,
       historyApiFallback: true
     },
-    devtool: 'eval-source-map'
+    devtool: 'eval'
   },
   production: {
     mode: 'production',
